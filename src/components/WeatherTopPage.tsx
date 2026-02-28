@@ -5,6 +5,7 @@ import { CitySearchForm } from "./CitySearchForm";
 import { ErrorMessage } from "./ErrorMessage";
 import { LoadingIndicator } from "./LoadingIndicator";
 import { WeatherResultSection } from "./WeatherResultSection";
+import { Card } from "./ui/card";
 
 function readCityFromUrl() {
   if (typeof window === "undefined") {
@@ -62,13 +63,28 @@ export function WeatherTopPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-sky-100 via-emerald-50 to-amber-50 px-4 py-8">
-      <div className="mx-auto w-full max-w-2xl space-y-6">
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h1 className="mb-1 text-2xl font-bold text-slate-900">天気情報確認アプリ</h1>
-          <p className="mb-4 text-sm text-slate-600">都市名を入力して現在の天気を確認できます。</p>
+    <main className="relative min-h-screen overflow-hidden px-4 py-6 sm:px-6 sm:py-10">
+      <div className="pointer-events-none absolute -top-20 left-[-30px] h-64 w-64 animate-drift rounded-full bg-pastel-peach/70 blur-3xl" />
+      <div className="pointer-events-none absolute right-[-20px] top-1/3 h-72 w-72 animate-drift rounded-full bg-pastel-mint/70 blur-3xl [animation-delay:1s]" />
+      <div className="pointer-events-none absolute bottom-[-30px] left-1/3 h-72 w-72 animate-drift rounded-full bg-pastel-sky/70 blur-3xl [animation-delay:2s]" />
+
+      <div className="relative mx-auto w-full max-w-4xl space-y-5">
+        <Card className="space-y-4">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="inline-flex rounded-full border border-white/80 bg-white/65 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                2026 Modern Weather
+              </p>
+              <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-800 sm:text-4xl">
+                天気検索
+              </h1>
+            </div>
+          </div>
+          <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+            都市名を入力して現在の天気を確認できます。
+          </p>
           <CitySearchForm defaultCity={city} onSearch={handleSearch} />
-        </section>
+        </Card>
 
         {weatherQuery.isLoading ? <LoadingIndicator /> : null}
         {weatherQuery.isError ? <ErrorMessage message={errorMessage} /> : null}

@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { citySchema, type CityFormValues } from "../lib/validation";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 type CitySearchFormProps = {
   defaultCity?: string;
@@ -31,26 +33,22 @@ export function CitySearchForm({ defaultCity = "", onSearch }: CitySearchFormPro
 
   return (
     <form className="space-y-3" onSubmit={handleSubmit(submitHandler)}>
-      <label className="block text-sm font-medium text-slate-700" htmlFor="city">
+      <label className="block text-sm font-semibold text-slate-700" htmlFor="city">
         都市名
       </label>
-      <div className="flex gap-2">
-        <input
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <Input
           id="city"
           type="text"
-          placeholder="例: Tokyo"
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none ring-sky-200 focus:ring"
+          placeholder="例: 東京 / Osaka"
+          className="flex-1"
           {...register("city")}
         />
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="rounded-lg bg-sky-500 px-4 py-2 font-medium text-white hover:bg-sky-600 disabled:cursor-not-allowed disabled:opacity-70"
-        >
-          検索
-        </button>
+        <Button type="submit" disabled={isSubmitting} className="sm:w-32">
+          検索する
+        </Button>
       </div>
-      {errors.city ? <p className="text-sm text-rose-600">{errors.city.message}</p> : null}
+      {errors.city ? <p className="text-sm font-medium text-rose-600">{errors.city.message}</p> : null}
     </form>
   );
 }
